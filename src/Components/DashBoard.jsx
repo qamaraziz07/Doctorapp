@@ -7,14 +7,17 @@ import {
   Redirect,
 } from "react-router-dom";
 import Doctor from "./Doctor";
+import AdminPanel from "./AdminPanel";
+import PatientDetail from "./PatientDetail";
+import Profile from "./Profile";
 
 function DashBoard() {
-  const role = { Admin: "admin", Doctor: "doctor", User: "user" };
+  const role = { admin: "Admin", doctor: "Doctor", user: "User" };
   console.log({ role });
   const [logUser, setLogUser] = useState(
     JSON.parse(localStorage.getItem("LoginUser")) || []
   );
-  const { category } = logUser;
+  const { category, id } = logUser;
   console.log(category);
   console.log({ logUser });
   // useEffect(() => {
@@ -22,16 +25,12 @@ function DashBoard() {
   //   history.push()
 
   // }, [])
+
   return (
     <>
-      <Switch>
-        <Route path="/admin" component={AdminPanel}></Route>
-        <Route path="/doctor" component={Doctor}></Route>
-        <Route path="/user">
-          <h1>user</h1>
-        </Route>
-      </Switch>
-      <Registration category={category} cond={false} />
+      {category === role.admin && <AdminPanel />}
+      {category === role.doctor && <Doctor id={id} />}
+      {category === role.user && <PatientDetail />}
     </>
   );
 }

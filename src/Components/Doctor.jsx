@@ -1,52 +1,55 @@
 import React, { useState } from "react";
-// import Medicalhistory from "./Medicalhistory";
-// import PatientDetail from "./PatientDetail";
+import PatientDetail from "./PatientDetail";
+import { Table } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 
-function Doctor() {
-  const [FullName, setFullName] = useState("");
-  const [specialist, setSpecialist] = useState("");
+function Doctor(props) {
+  // const [FullName, setFullName] = useState("");
+  // const [specialist, setSpecialist] = useState("");
 
-  if (!FullName || !specialist) {
-    console.log("not fill details");
-  } else {
-    localStorage.setItem("FullName", JSON.stringify(FullName));
-    localStorage.setItem("specialist", JSON.stringify(specialist));
-    console.log("saved dctrs details");
-  }
+  // if (!FullName || !specialist) {
+  //   console.log("not fill details");
+  // } else {
+  //   localStorage.setItem("FullName", JSON.stringify(FullName));
+  //   localStorage.setItem("specialist", JSON.stringify(specialist));
+  //   console.log("saved dctrs details");
+  // }
 
-  return (
-    <>
-      <div>
-        <h3>Create Doctors</h3>
-
-        <div className="form-group">
-          <label>FullName</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter yours Name"
-            name="fullname"
-            onChange={(event) => {
-              setFullName(event.target.value);
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label>specialist</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter Speciallity"
-            name="specialist"
-            onChange={(event) => {
-              setSpecialist(event.target.value);
-            }}
-          />
-        </div>
-        <button className="btn btn-dark btn-lg btn-block">Created</button>
-      </div>
-    </>
-  );
+  return <PatientDetail doctorId={props.id} />;
+  <>
+    {/* <Table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr> */}
+    {/* {admn?.map((val) => {
+          return (
+            <tr key={val.id}>
+              <td>{val.name}</td>
+              <td>{val.email}</td>
+              <td>{val.category}</td>
+              <td>
+                <Link to={`/profile/${val.id}`}>
+                  <Button id="dataBtn">check</Button>
+                </Link>
+              </td>
+            </tr>
+          );
+        })} */}
+    {/* </tbody>
+    </Table> */}
+  </>;
 }
 
 export default Doctor;

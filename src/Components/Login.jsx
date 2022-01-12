@@ -20,7 +20,10 @@ const Login = () => {
       toast.error("Form Inputs must be specified!");
     } else {
       console.log({ user });
-      var index = user.find((userDetails) => userDetails.email === email);
+      var index = user.find(
+        (userDetails) =>
+          userDetails.email === email && userDetails.password === password
+      );
       if (index) {
         console.log({ index });
         localStorage.setItem("LoginUser", JSON.stringify(index));
