@@ -8,6 +8,7 @@ const Registration = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [gender, setGender] = useState("Male");
   const [category, setCategory] = useState("");
   const [show, setShow] = useState(false);
   const history = useHistory();
@@ -18,7 +19,7 @@ const Registration = (props) => {
   // const [flag, setFlag] = useState(false);
 
   function handleFormSubmit() {
-    if (!name || !email || !password || !phone || !category) {
+    if (!name || !email || !password || !phone || !category || !gender) {
       // setFlag(true);
       setShow(true);
       // console.log("akshj");
@@ -31,7 +32,7 @@ const Registration = (props) => {
         setShow(false);
         // console.log("abcd");
         const id = Date.now();
-        const details = { name, email, password, phone, category, id };
+        const details = { name, email, password, phone, category, id, gender };
         localStorage.setItem("value", JSON.stringify([...user, details]));
         setUser((pre) => [...pre, details]);
         toast.success("Successfully registered");
@@ -90,6 +91,19 @@ const Registration = (props) => {
             onChange={(event) => setPhone(event.target.value)}
           />
         </div>
+        <div>
+          <label>Gender</label>
+          <select
+            onChange={(event) => {
+              setGender(event.target.value);
+            }}
+            className="form-control"
+          >
+            <option>Male</option>
+            <option>Female</option>
+            <option>TransGender</option>
+          </select>
+        </div>
 
         <div>
           <label>Category</label>
@@ -111,18 +125,18 @@ const Registration = (props) => {
             />
             <label htmlFor="male">Doctor</label>
 
-            {props.cond && (
-              <>
-                <input
-                  type="radio"
-                  value="User"
-                  id="user"
-                  name="gender"
-                  onChange={(event) => setCategory(event.target.value)}
-                />
-                <label htmlFor="male">User</label>
-              </>
-            )}
+            {/* {props.cond && ( */}
+            <>
+              <input
+                type="radio"
+                value="User"
+                id="user"
+                name="gender"
+                onChange={(event) => setCategory(event.target.value)}
+              />
+              <label htmlFor="male">User</label>
+            </>
+            {/* )} */}
           </div>
         </div>
 

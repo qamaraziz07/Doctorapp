@@ -1,46 +1,118 @@
 import React from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 function UserDetails() {
-  const [state, setstate] = useState([]);
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState([]);
   const { id } = useParams();
   console.log({ id });
-  const [User, setUser] = useState(
+  const [patients, setPatients] = useState(
     JSON.parse(localStorage.getItem("PatientDetails")) || []
   );
-  console.log(User);
-  useEffect(() => {
-    setstate(...User?.filter((val) => val.doctorId === Number(id)));
-  }, [id, User]);
-  console.log( state,"data" );
+
+  const [users, setUser] = useState(
+    JSON.parse(localStorage.getItem("value")) || []
+  );
+
+  console.log({ search, users, patients });
+
+  // useEffect(() => {
+  //   if(!search)
+  //   let abc = patients?.map((element) => {
+  //     const userData = users?.filter((val) => element.email === val.email);
+  //     return { ...element, ...userData[0] };
+  //   });
+  //   setData(abc);
+  // }else{
+  //   console.log("i am searching")
+  // }
+  // }, [search]);
+  // console.log({ data });
+  // useEffect(() => {
+  //   if (!search) {
+  //     setstate(User?.filter((val) => val.doctorId === Number(id)));
+  //   } else {
+  //     let filterUser = [];
+  //     state?.forEach((val) => {
+  //       console.log({ namew: val, search });
+  //     });
+  //   }
+  // }, [id, User, search]);
+  // console.log({ state }, "data");
   //   const filteredData = User?.filter((val) => val.id === id);
   //   console.log(filteredData);
+
   return (
     <>
-    <div className="card">
+      <div>
+        <div>
+          <label>Search By Name :</label>
+          <input
+            type="search"
+            className="search"
+            placeholder="Search Name"
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+          />
 
-        <h3>Profile Details</h3>
-        <Card style={{ width: "18rem" }}>
-        {User?.map((patient)=>{
-            return <>
-            <Card.Header style={{ fontWeight: "bold" }}>
-            Name:{patient?.FullName}
-          </Card.Header>
-          {/* <ListGroup > */}
-            <ListGroup.Item>Email:{patient?.email} </ListGroup.Item>
-            <ListGroup.Item>Phone# {patient?.phone}</ListGroup.Item>
-            <ListGroup.Item>Address:{patient?.address} </ListGroup.Item>
-            <ListGroup.Item>BloodGroup:{patient?.bloodgroup} </ListGroup.Item>
-            <ListGroup.Item>Gender:{patient?.gender} </ListGroup.Item>
-            <ListGroup.Item>Age:{patient?.age} </ListGroup.Item>
-          {/* </ListGroup> */}
-            </> 
-        })}
-        </Card>
-    </div>
-
+          <Button id="dataBtn">Search</Button>
+        </div>
+        <div>
+          <label>Search By Date :</label>
+          <input
+            type="search"
+            className="search"
+            placeholder="Search Date"
+            // onChange={(event) => {
+            //   setSearch(event.target.value);
+            // }}
+          />
+          <Button id="dataBtn">Search</Button>
+        </div>
+      </div>
+      <div>
+        <h3>Patient Details</h3>
+        <Table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Username</th>
+              <th>Email</th>
+              {/* <th>Address</th> */}
+              <th>BloodGroup</th>
+              <th>Symptoms</th>
+              <th>Medication</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data?.map((val) => {
+              return (
+                <tr key={val.id}>
+                  <td>{val.date}</td>
+                  <td>{val.time}</td>
+                  <td>{val.name}</td>
+                  <td>{val.email}</td>
+                  <td>{val.address}</td>
+                  <td>{val.bloodgroup}</td>
+                  <td>{val.symptoms}</td>
+                  <td>{val.medication}</td>
+                  <td>{val.age}</td>
+                  <td>
+                    <Link to={`/profile/${val.id}`}>
+                      <Button id="dataBtn">check</Button>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
     </>
   );
 }

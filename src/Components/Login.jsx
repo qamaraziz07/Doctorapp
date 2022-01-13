@@ -9,7 +9,7 @@ const Login = () => {
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("value")) || []
   );
-  // const [flag, setFlag] = useState(false);
+
   const [isLogin, setIsLogin] = useState(false);
   const history = useHistory();
   const [show, setShow] = useState(false);

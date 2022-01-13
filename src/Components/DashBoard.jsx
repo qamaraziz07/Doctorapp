@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import Registration from "./Registration";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+// import Registration from "./Registration";
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Redirect,
+// } from "react-router-dom";
 import Doctor from "./Doctor";
 import AdminPanel from "./AdminPanel";
 import PatientDetail from "./PatientDetail";
 import Profile from "./Profile";
+import UserDetails from "./UserDetails";
+import UserProfileDetail from "./UserProfileDetail";
 
 function DashBoard() {
   const role = { admin: "Admin", doctor: "Doctor", user: "User" };
@@ -30,7 +32,7 @@ function DashBoard() {
     <>
       {category === role.admin && <AdminPanel />}
       {category === role.doctor && <Doctor id={id} />}
-      {category === role.user && <PatientDetail />}
+      {category === role.user && <UserProfileDetail />}
     </>
   );
 }

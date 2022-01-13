@@ -8,6 +8,18 @@ const Profile = () => {
 
   console.log({ id });
   const [state, setstate] = useState({});
+
+  ////userdetails
+  const [userdetail, setUserdetail] = useState(
+    JSON.parse(localStorage.getItem("PatientDetails")) || []
+  );
+  console.log({ userdetail });
+  ////Logindetails
+  const [loginDetail, setLoginDetail] = useState(
+    JSON.parse(localStorage.getItem("LoginUser")) || []
+  );
+  console.log({ loginDetail });
+
   const [data, setData] = useState(
     JSON.parse(localStorage.getItem("value")) || []
   );
@@ -24,9 +36,15 @@ const Profile = () => {
           Name: {state?.name}
         </Card.Header>
         <ListGroup variant="flush">
+          <ListGroup.Item>Date: </ListGroup.Item>
+          <ListGroup.Item>Time: </ListGroup.Item>
           <ListGroup.Item>Email: {state?.email}</ListGroup.Item>
+          <ListGroup.Item>Gender: {state?.gender}</ListGroup.Item>
           <ListGroup.Item>Phone #: {state?.phone}</ListGroup.Item>
-          <ListGroup.Item>Role: {state?.category}</ListGroup.Item>
+          <ListGroup.Item>Age: </ListGroup.Item>
+          <ListGroup.Item>BloodGroup: </ListGroup.Item>
+          <ListGroup.Item>Symptoms: </ListGroup.Item>
+          <ListGroup.Item>Medication: </ListGroup.Item>
         </ListGroup>
       </Card>
     </>

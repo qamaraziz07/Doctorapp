@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PatientDetail from "./PatientDetail";
-import { Table } from "react-bootstrap";
+// import { Table } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
 
 function Doctor(props) {
