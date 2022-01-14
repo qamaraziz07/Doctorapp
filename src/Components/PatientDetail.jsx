@@ -17,6 +17,7 @@ function PatientDetail(props) {
   const [Patient, setPatient] = useState(
     JSON.parse(localStorage.getItem("PatientDetails")) || []
   );
+  console.log({ Patient });
   const [users, setusers] = useState(
     JSON.parse(localStorage.getItem("value")) || []
   );
@@ -44,6 +45,7 @@ function PatientDetail(props) {
       console.log({ Patient });
 
       let userInd = users.findIndex((user) => user.email === email);
+      console.log({ userInd });
       if (userInd > -1) {
         let index = Patient.findIndex(
           (patientDtl) => patientDtl.email === email

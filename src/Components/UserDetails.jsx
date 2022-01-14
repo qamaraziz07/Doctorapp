@@ -1,11 +1,14 @@
 import React from "react";
 import { Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 function UserDetails() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([])
+  // let allData = [];
   const { id } = useParams();
   console.log({ id });
   const [patients, setPatients] = useState(
@@ -18,17 +21,39 @@ function UserDetails() {
 
   console.log({ search, users, patients });
 
-  // useEffect(() => {
-  //   if(!search)
-  //   let abc = patients?.map((element) => {
-  //     const userData = users?.filter((val) => element.email === val.email);
-  //     return { ...element, ...userData[0] };
-  //   });
-  //   setData(abc);
-  // }else{
-  //   console.log("i am searching")
-  // }
-  // }, [search]);
+  useEffect(() => {
+    if(search === "" && !data.length){
+ 
+    const allData = patients?.map((element) => {
+      const userData = users?.filter((val) => element.email === val.email);
+      console.log({userData});
+      return { ...element, ...userData[0] };
+    });
+    console.log({allData})
+    setData(allData);
+    setSearchData(allData)
+  }else if(search === "" && data.length){
+    setSearchData(data)
+  }else if(search !== "" && data.length){
+
+         if(search.includes("-")){
+          const dd =  data?.filter(elem => {
+            const {date} = elem;
+                console.log({elem,date,search});
+             return date.includes(search)
+           })
+           setSearchData(dd)
+         }else{
+    const fd =  data?.filter(elem => {
+      const {name} = elem;
+          console.log({elem,name,search});
+       return name.toLowerCase().includes(search)
+     })
+     setSearchData(fd)
+    }
+  }
+  }, [search,data])
+  console.log({data, searchData, search})
   // console.log({ data });
   // useEffect(() => {
   //   if (!search) {
@@ -50,7 +75,7 @@ function UserDetails() {
         <div>
           <label>Search By Name :</label>
           <input
-            type="search"
+            type="text"
             className="search"
             placeholder="Search Name"
             onChange={(event) => {
@@ -58,19 +83,29 @@ function UserDetails() {
             }}
           />
 
-          <Button id="dataBtn">Search</Button>
+          {/* <Button id="dataBtn">Search</Button> */}
         </div>
         <div>
           <label>Search By Date :</label>
+          
+          {/* <Input
+            mask="99-99-9999"
+            type="date"
+            className="search"
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+            placeholder="Search Date"
+          /> */}
           <input
-            type="search"
+            type="date"
             className="search"
             placeholder="Search Date"
-            // onChange={(event) => {
-            //   setSearch(event.target.value);
-            // }}
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
           />
-          <Button id="dataBtn">Search</Button>
+          {/* <Button id="dataBtn">Search</Button> */}
         </div>
       </div>
       <div>
@@ -82,31 +117,30 @@ function UserDetails() {
               <th>Time</th>
               <th>Username</th>
               <th>Email</th>
-              {/* <th>Address</th> */}
               <th>BloodGroup</th>
               <th>Symptoms</th>
               <th>Medication</th>
               <th>Age</th>
+              
             </tr>
           </thead>
           <tbody>
-            {data?.map((val) => {
+            {searchData?.map((val) => {
               return (
                 <tr key={val.id}>
                   <td>{val.date}</td>
                   <td>{val.time}</td>
                   <td>{val.name}</td>
                   <td>{val.email}</td>
-                  <td>{val.address}</td>
                   <td>{val.bloodgroup}</td>
                   <td>{val.symptoms}</td>
                   <td>{val.medication}</td>
                   <td>{val.age}</td>
-                  <td>
+                  {/* <td>
                     <Link to={`/profile/${val.id}`}>
                       <Button id="dataBtn">check</Button>
                     </Link>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

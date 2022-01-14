@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <div className="outer">
-        <div className="inner">
+        <div className="inner loginner">
           <Router>
             <Switch>
               <Route exact path="/login" component={Login} />
@@ -26,8 +26,11 @@ function App() {
 
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/profile/:id" component={Profile}></Route>
-              <Route exact path="/Userdetails/:id" component={UserDetails}></Route>
-
+              <Route
+                exact
+                path="/Userdetails/:id"
+                component={UserDetails}
+              ></Route>
 
               <Redirect to="/login" />
             </Switch>
